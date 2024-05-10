@@ -85,10 +85,10 @@ variable "resource_names_map" {
       name = "fargate"
     }
     ecs_sg = {
-      name = "ecs-sg"
+      name = "ecssg"
     }
     vpce_sg = {
-      name = "vpce-sg"
+      name = "vpcesg"
     }
     namespace = {
       name       = "ns"
