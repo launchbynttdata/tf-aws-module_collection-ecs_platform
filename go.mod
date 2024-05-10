@@ -1,4 +1,4 @@
-module github.com/nexient-llc/tf-aws-wrapper_module-ecs_platform
+module github.com/launchbynttdata/tf-aws-module_collection-ecs_platform
 
 go 1.20
 
@@ -8,7 +8,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ecs v1.41.8
 	github.com/gruntwork-io/terratest v0.43.12
 	github.com/launchbynttdata/lcaf-component-terratest v1.0.4
-	github.com/nexient-llc/lcaf-component-terratest-common v1.0.3
 	github.com/stretchr/testify v1.8.1
 )
 

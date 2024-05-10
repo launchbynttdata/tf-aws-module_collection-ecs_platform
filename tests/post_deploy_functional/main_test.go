@@ -18,7 +18,7 @@ import (
 	"github.com/launchbynttdata/lcaf-component-terratest/lib"
 	"github.com/launchbynttdata/lcaf-component-terratest/types"
 
-	testimpl "github.com/nexient-llc/tf-aws-wrapper_module-ecs_platform/tests/testimpl"
+	testimpl "github.com/launchbynttdata/tf-aws-module_collection-ecs_platform/tests/testimpl"
 )
 
 const (
