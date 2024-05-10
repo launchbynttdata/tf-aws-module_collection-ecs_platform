@@ -124,13 +124,13 @@ If `make check` target is successful, developer is good to commit the code to pr
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.28.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.58.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.48.0 |
 
 ## Modules
 
@@ -161,7 +161,6 @@ If `make check` target is successful, developer is good to commit the code to pr
 | <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by tf-module-resource\_name to generate resource names | <pre>map(object(<br>    {<br>      name       = string<br>      max_length = optional(number, 60)<br>    }<br>  ))</pre> | <pre>{<br>  "ecs_cluster": {<br>    "max_length": 60,<br>    "name": "fargate"<br>  },<br>  "namespace": {<br>    "max_length": 60,<br>    "name": "ns"<br>  },<br>  "vpce_sg": {<br>    "max_length": 60,<br>    "name": "vpce-sg"<br>  }<br>}</pre> | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID of the VPC where infrastructure will be provisioned | `string` | n/a | yes |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | List of private subnets | `list(string)` | n/a | yes |
-| <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | List of public subnets | `list(string)` | `[]` | no |
 | <a name="input_gateway_vpc_endpoints"></a> [gateway\_vpc\_endpoints](#input\_gateway\_vpc\_endpoints) | List of VPC endpoints to be created. AWS currently only supports S3 and DynamoDB gateway interfaces | <pre>map(object({<br>    service_name        = string<br>    subnet_names        = optional(list(string), [])<br>    private_dns_enabled = optional(bool, false)<br>    route_table_ids     = optional(list(string))<br>    tags                = optional(map(string), {})<br>  }))</pre> | `{}` | no |
 | <a name="input_interface_vpc_endpoints"></a> [interface\_vpc\_endpoints](#input\_interface\_vpc\_endpoints) | List of VPC endpoints to be created | <pre>map(object({<br>    service_name        = string<br>    subnet_names        = optional(list(string), [])<br>    private_dns_enabled = optional(bool, false)<br>    tags                = optional(map(string), {})<br>  }))</pre> | `{}` | no |
 | <a name="input_route_table_ids"></a> [route\_table\_ids](#input\_route\_table\_ids) | List of route tables for Gateway VPC endpoints | `list(string)` | `[]` | no |
@@ -169,7 +168,7 @@ If `make check` target is successful, developer is good to commit the code to pr
 | <a name="input_container_insights_enabled"></a> [container\_insights\_enabled](#input\_container\_insights\_enabled) | Whether to enable container Insights or not | `bool` | `true` | no |
 | <a name="input_namespace_name"></a> [namespace\_name](#input\_namespace\_name) | The Cloud Map namespace to be created. Should be a valid domain name. Example test.example.local | `string` | `""` | no |
 | <a name="input_namespace_description"></a> [namespace\_description](#input\_namespace\_description) | Description for the Cloud Map Namespace | `string` | `""` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
 
 ## Outputs
 

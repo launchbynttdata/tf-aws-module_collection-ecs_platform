@@ -12,14 +12,7 @@
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.19.0"
-
-  name                 = "test-vpc-015935234"
-  cidr                 = var.vpc_cidr
-  private_subnets      = var.private_subnets
-  azs                  = var.availability_zones
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  version = "~> 5.1.1"
 
   tags = var.tags
 }

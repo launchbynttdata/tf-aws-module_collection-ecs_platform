@@ -25,16 +25,19 @@ variable "environment" {
 variable "environment_number" {
   description = "The environment count for the respective environment. Defaults to 000. Increments in value of 1"
   default     = "000"
+  type        = string
 }
 
 variable "resource_number" {
   description = "The resource count for the respective resource. Defaults to 000. Increments in value of 1"
   default     = "000"
+  type        = string
 }
 
 variable "region" {
   description = "AWS Region in which the infra needs to be provisioned"
   default     = "us-east-2"
+  type        = string
 }
 
 variable "resource_names_map" {
@@ -70,12 +73,6 @@ variable "vpc_id" {
 variable "private_subnets" {
   description = "List of private subnets"
   type        = list(string)
-}
-
-variable "public_subnets" {
-  description = "List of public subnets"
-  type        = list(string)
-  default     = []
 }
 
 ### VPC Endpoints related variables
@@ -128,6 +125,7 @@ variable "vpce_security_group" {
 variable "container_insights_enabled" {
   description = "Whether to enable container Insights or not"
   default     = true
+  type        = bool
 }
 
 ### Cloud Map Namespace related variables
@@ -144,5 +142,6 @@ variable "namespace_description" {
 }
 
 variable "tags" {
+  type    = map(string)
   default = {}
 }
