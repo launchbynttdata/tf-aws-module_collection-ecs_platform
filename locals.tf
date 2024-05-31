@@ -23,4 +23,8 @@ locals {
   resource_names_map = merge(local.vpce_names_map, var.resource_names_map)
 
   tags = merge(local.default_tags, var.tags)
+
+  vpc_id          = var.create_vpc ? module.vpc[0].vpc_id : var.vpc_id
+  private_subnets = var.create_vpc ? module.vpc[0].private_subnets : var.private_subnets
+  route_table_ids = var.create_vpc ? concat([module.vpc[0].default_route_table_id], module.vpc[0].private_route_table_ids) : var.route_table_ids
 }

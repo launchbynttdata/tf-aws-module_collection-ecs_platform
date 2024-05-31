@@ -100,12 +100,43 @@ variable "resource_names_map" {
 variable "vpc_id" {
   description = "The VPC ID of the VPC where infrastructure will be provisioned"
   type        = string
+  default     = null
+}
+
+variable "vpc_name" {
+  type    = string
+  default = "test-vpc-015935234"
+}
+
+variable "vpc_cidr" {
+  type    = string
+  default = "10.1.0.0/16"
+}
+
+variable "private_subnet_cidr_ranges" {
+  description = "List of private subnets"
+  type        = list(string)
+  default     = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
+}
+
+variable "availability_zones" {
+  description = "List of availability zones for the VPC"
+  type        = list(string)
+  default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
+}
+
+variable "create_vpc" {
+  description = "Whether to create the VPC or not"
+  type        = bool
+  default     = false
 }
 
 variable "private_subnets" {
   description = "List of private subnets"
   type        = list(string)
+  default     = []
 }
+
 
 ### VPC Endpoints related variables
 variable "gateway_vpc_endpoints" {

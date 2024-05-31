@@ -29,26 +29,14 @@ gateway_vpc_endpoints = {
 }
 
 vpce_security_group = {
-  ingress_rules       = ["https-443-tcp", "http-80-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  egress_with_cidr_blocks = [{
-    cidr_blocks = "10.70.134.0/23"
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    },
-    {
-      cidr_blocks = "10.63.32.0/23"
-      from_port   = 443
-      to_port     = 443
-      protocol    = "tcp"
-    },
-    {
-      cidr_blocks = "10.63.30.0/24"
-      from_port   = 27017
-      to_port     = 27018
-      protocol    = "tcp"
-  }]
+  ingress_rules           = ["https-443-tcp", "http-80-tcp"]
+  ingress_cidr_blocks     = ["0.0.0.0/0"]
+  egress_with_cidr_blocks = []
 }
 
-namespace_name = "test.example.com"
+namespace_name             = "test.example.com"
+vpc_cidr                   = "10.2.0.0/16"
+private_subnet_cidr_ranges = ["10.2.1.0/24", "10.2.2.0/24", "10.2.3.0/24"]
+availability_zones         = ["us-east-2a", "us-east-2b", "us-east-2c"]
+vpc_name                   = "test-vpc-ecr"
+create_vpc                 = true

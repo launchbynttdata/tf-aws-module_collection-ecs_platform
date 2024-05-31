@@ -49,3 +49,13 @@ output "namespace_hosted_zone" {
   description = "Hosted Zone of Cloud Map Namespace"
   value       = module.ecs_platform.namespace_hosted_zone
 }
+
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = module.ecs_platform.vpc_id
+}
+
+output "private_subnet_ids" {
+  description = "IDs of the private subnets"
+  value       = module.ecs_platform.private_subnet_ids
+}
