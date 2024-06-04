@@ -115,6 +115,12 @@ variable "private_subnet_cidr_ranges" {
   default     = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
 }
 
+variable "public_subnet_cidr_ranges" {
+  description = "List of public subnet CIDR ranges for the VPC"
+  type        = list(string)
+  default     = []
+}
+
 variable "availability_zones" {
   description = "List of availability zones for the VPC"
   type        = list(string)

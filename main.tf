@@ -125,6 +125,7 @@ module "vpc" {
   name                 = var.vpc_name
   cidr                 = var.vpc_cidr
   private_subnets      = var.private_subnet_cidr_ranges
+  public_subnets       = var.public_subnet_cidr_ranges
   azs                  = var.availability_zones
   enable_dns_hostnames = true
   enable_dns_support   = true
