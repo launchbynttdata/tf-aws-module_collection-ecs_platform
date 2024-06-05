@@ -31,11 +31,7 @@ module "ecs_platform" {
 
   tags = var.tags
 
-  vpc_cidr                   = var.vpc_cidr
-  private_subnet_cidr_ranges = var.private_subnet_cidr_ranges
-  public_subnet_cidr_ranges  = var.public_subnet_cidr_ranges
-  availability_zones         = var.availability_zones
-  vpc_name                   = var.vpc_name
-  create_vpc                 = var.create_vpc
+  vpc        = var.vpc
+  create_vpc = var.create_vpc
 
 }

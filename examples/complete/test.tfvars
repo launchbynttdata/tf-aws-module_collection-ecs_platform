@@ -34,9 +34,12 @@ vpce_security_group = {
   egress_with_cidr_blocks = []
 }
 
-namespace_name             = "test.example.com"
-vpc_cidr                   = "10.2.0.0/16"
-private_subnet_cidr_ranges = ["10.2.1.0/24", "10.2.2.0/24", "10.2.3.0/24"]
-availability_zones         = ["us-east-2a", "us-east-2b", "us-east-2c"]
-vpc_name                   = "test-vpc-ecr"
-create_vpc                 = true
+namespace_name = "test.example.com"
+create_vpc     = true
+
+vpc = {
+  vpc_name                   = "test-vpc-ecr"
+  vpc_cidr                   = "10.2.0.0/16"
+  private_subnet_cidr_ranges = ["10.2.1.0/24", "10.2.2.0/24", "10.2.3.0/24"]
+  availability_zones         = ["us-east-2a", "us-east-2b", "us-east-2c"]
+}
