@@ -10,22 +10,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.1.1"
-
-  tags = var.tags
-}
-
 module "ecs_platform" {
   source = "../.."
 
-  vpc_id          = module.vpc.vpc_id
-  private_subnets = module.vpc.private_subnets
   # Need to inject route_table_ids for gateway endpoints
   gateway_vpc_endpoints   = var.gateway_vpc_endpoints
   interface_vpc_endpoints = var.interface_vpc_endpoints
-  route_table_ids         = [module.vpc.default_route_table_id]
 
   naming_prefix              = var.naming_prefix
   vpce_security_group        = var.vpce_security_group
@@ -40,4 +30,8 @@ module "ecs_platform" {
   namespace_description = var.namespace_description
 
   tags = var.tags
+
+  vpc        = var.vpc
+  create_vpc = var.create_vpc
+
 }

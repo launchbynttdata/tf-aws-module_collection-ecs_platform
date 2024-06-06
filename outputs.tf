@@ -50,3 +50,13 @@ output "namespace_hosted_zone" {
   description = "Hosted Zone of Cloud Map Namespace"
   value       = try(module.namespace[0].hosted_zone, "")
 }
+
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = var.create_vpc ? module.vpc[0].vpc_id : var.vpc_id
+}
+
+output "private_subnet_ids" {
+  description = "IDs of the private subnets"
+  value       = var.create_vpc ? module.vpc[0].private_subnets : var.private_subnets
+}

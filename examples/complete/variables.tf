@@ -99,6 +99,23 @@ variable "resource_names_map" {
 
 ### VPC related variables
 
+variable "vpc" {
+  description = "VPC related variables"
+  type = object({
+    vpc_name                   = string
+    vpc_cidr                   = string
+    private_subnet_cidr_ranges = list(string)
+    public_subnet_cidr_ranges  = optional(list(string), [])
+    availability_zones         = list(string)
+  })
+}
+
+variable "create_vpc" {
+  description = "Whether to create the VPC or not"
+  type        = bool
+  default     = false
+}
+
 ### VPC Endpoints related variables
 variable "interface_vpc_endpoints" {
   description = "List of VPC endpoints to be created"

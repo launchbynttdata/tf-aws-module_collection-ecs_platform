@@ -10,17 +10,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-data "aws_vpc" "vpc" {
-  id = var.vpc_id
-}
-
 module "security_group_vpce" {
   count = var.vpce_security_group != null ? 1 : 0
 
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.17.1"
+  version = "~> 5.1.2"
 
-  vpc_id                   = data.aws_vpc.vpc.id
+  vpc_id                   = local.vpc_id
   name                     = module.resource_names["vpce_sg"].recommended_per_length_restriction
   description              = "Security Group for all VPC Endpoints"
   ingress_cidr_blocks      = coalesce(try(lookup(var.vpce_security_group, "ingress_cidr_blocks", []), []), [])
@@ -50,7 +46,7 @@ module "resource_names" {
 
 module "ecs" {
   source  = "terraform-aws-modules/ecs/aws"
-  version = "~> 4.1.3"
+  version = "~> 5.11.2"
 
   cluster_name = module.resource_names["ecs_cluster"].recommended_per_length_restriction
   cluster_settings = {
@@ -63,9 +59,9 @@ module "ecs" {
 
 module "interface_endpoints" {
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "~> 3.19.0"
+  version = "~> 5.8.1"
 
-  vpc_id             = data.aws_vpc.vpc.id
+  vpc_id             = local.vpc_id
   security_group_ids = var.vpce_security_group != null ? [module.security_group_vpce[0].security_group_id] : []
 
   endpoints = {
@@ -73,7 +69,7 @@ module "interface_endpoints" {
       service             = v.service_name
       service_type        = "Interface"
       private_dns_enabled = v.private_dns_enabled
-      subnet_ids          = concat(var.private_subnets, v.subnet_names)
+      subnet_ids          = concat(local.private_subnets, v.subnet_names)
       tags                = merge({ resource_name = try(module.resource_names[k].standard, k) }, v.tags)
     }
   }
@@ -83,9 +79,9 @@ module "interface_endpoints" {
 
 module "gateway_endpoints" {
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "~> 3.19.0"
+  version = "~> 5.8.1"
 
-  vpc_id             = data.aws_vpc.vpc.id
+  vpc_id             = local.vpc_id
   security_group_ids = var.vpce_security_group != null ? [module.security_group_vpce[0].security_group_id] : []
 
   endpoints = {
@@ -93,9 +89,9 @@ module "gateway_endpoints" {
       service             = v.service_name
       service_type        = "Gateway"
       private_dns_enabled = v.private_dns_enabled
-      subnet_ids          = concat(var.private_subnets, v.subnet_names)
+      subnet_ids          = concat(local.private_subnets, v.subnet_names)
       tags                = merge({ resource_name = try(module.resource_names[k].standard, k) }, v.tags)
-      route_table_ids     = var.route_table_ids
+      route_table_ids     = local.route_table_ids
     }
   }
 
@@ -109,7 +105,7 @@ module "namespace" {
 
   name        = var.namespace_name
   description = length(var.namespace_description) > 0 ? var.namespace_description : "Cloud Map Namespace for ${var.naming_prefix}"
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = local.vpc_id
 
   tags = merge(
     local.tags,
@@ -118,4 +114,21 @@ module "namespace" {
       resource_name : module.resource_names["namespace"].standard
     }
   )
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.8.1"
+
+  count = var.create_vpc ? 1 : 0
+
+  name                 = var.vpc.vpc_name
+  cidr                 = var.vpc.vpc_cidr
+  private_subnets      = var.vpc.private_subnet_cidr_ranges
+  public_subnets       = var.vpc.public_subnet_cidr_ranges
+  azs                  = var.vpc.availability_zones
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = var.tags
 }

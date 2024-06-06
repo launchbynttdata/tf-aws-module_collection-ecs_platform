@@ -98,14 +98,34 @@ variable "resource_names_map" {
 
 ### VPC related variables
 variable "vpc_id" {
-  description = "The VPC ID of the VPC where infrastructure will be provisioned"
+  description = "The VPC ID of the VPC where infrastructure will be provisioned. Valid vpc_id is required when create_vpc variable value is set to true. Otherwise explicitely set this value to null."
   type        = string
+  default     = null
+}
+
+variable "create_vpc" {
+  description = "Whether to create the VPC or not. Set this value to `true` to create a new VPC for ECS cluster. Default is `false`"
+  type        = bool
+  default     = false
 }
 
 variable "private_subnets" {
-  description = "List of private subnets"
+  description = "List of existing private subnet IDs to be used for ECS cluster"
   type        = list(string)
+  default     = []
 }
+
+variable "vpc" {
+  description = "VPC related variables"
+  type = object({
+    vpc_name                   = string
+    vpc_cidr                   = string
+    private_subnet_cidr_ranges = list(string)
+    public_subnet_cidr_ranges  = optional(list(string), [])
+    availability_zones         = list(string)
+  })
+}
+
 
 ### VPC Endpoints related variables
 variable "gateway_vpc_endpoints" {
