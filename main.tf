@@ -122,13 +122,14 @@ module "vpc" {
 
   count = var.create_vpc ? 1 : 0
 
-  name                 = var.vpc.vpc_name
-  cidr                 = var.vpc.vpc_cidr
-  private_subnets      = var.vpc.private_subnet_cidr_ranges
-  public_subnets       = var.vpc.public_subnet_cidr_ranges
-  azs                  = var.vpc.availability_zones
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  name                           = var.vpc.vpc_name
+  cidr                           = var.vpc.vpc_cidr
+  private_subnets                = var.vpc.private_subnet_cidr_ranges
+  public_subnets                 = var.vpc.public_subnet_cidr_ranges
+  azs                            = var.vpc.availability_zones
+  enable_dns_hostnames           = true
+  enable_dns_support             = true
+  default_security_group_ingress = var.vpc.default_security_group_ingress
 
   tags = var.tags
 }

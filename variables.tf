@@ -118,11 +118,12 @@ variable "private_subnets" {
 variable "vpc" {
   description = "VPC related variables"
   type = object({
-    vpc_name                   = string
-    vpc_cidr                   = string
-    private_subnet_cidr_ranges = list(string)
-    public_subnet_cidr_ranges  = optional(list(string), [])
-    availability_zones         = list(string)
+    vpc_name                       = string
+    vpc_cidr                       = string
+    private_subnet_cidr_ranges     = list(string)
+    public_subnet_cidr_ranges      = optional(list(string), [])
+    availability_zones             = list(string)
+    default_security_group_ingress = optional(list(map(string)), [])
   })
 }
 
