@@ -1,7 +1,5 @@
 # This tfvars can be used for testing with the module in examples/complete.
 
-naming_prefix = "terratest"
-
 interface_vpc_endpoints = {
   ecrdkr = {
     service_name        = "ecr.dkr"
