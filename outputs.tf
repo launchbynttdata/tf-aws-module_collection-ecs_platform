@@ -60,3 +60,8 @@ output "private_subnet_ids" {
   description = "IDs of the private subnets"
   value       = var.create_vpc ? module.vpc[0].private_subnets : var.private_subnets
 }
+
+output "public_subnet_ids" {
+  description = "List of IDs of public subnets"
+  value       = var.create_vpc ? module.vpc[0].public_subnets : []
+}

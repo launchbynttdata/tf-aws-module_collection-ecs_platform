@@ -30,7 +30,8 @@ module "security_group_vpce" {
 }
 
 module "resource_names" {
-  source = "github.com/launchbynttdata/tf-launch-module_library-resource_name.git?ref=1.0.0"
+  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
+  version = "~> 1.0"
 
   for_each = local.resource_names_map
 
@@ -99,12 +100,13 @@ module "gateway_endpoints" {
 }
 
 module "namespace" {
-  source = "git::https://github.com/launchbynttdata/tf-aws-module_primitive-private_dns_namespace.git?ref=1.0.0"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/private_dns_namespace/aws"
+  version = "~> 1.0"
 
   count = length(var.namespace_name) > 0 ? 1 : 0
 
   name        = var.namespace_name
-  description = length(var.namespace_description) > 0 ? var.namespace_description : "Cloud Map Namespace for ${var.naming_prefix}"
+  description = length(var.namespace_description) > 0 ? var.namespace_description : "Cloud Map Namespace for ${var.logical_product_family}-${var.logical_product_service}"
   vpc_id      = local.vpc_id
 
   tags = merge(

@@ -14,10 +14,8 @@ module "ecs_platform" {
   source = "../.."
 
   # Need to inject route_table_ids for gateway endpoints
-  gateway_vpc_endpoints   = var.gateway_vpc_endpoints
-  interface_vpc_endpoints = var.interface_vpc_endpoints
-
-  naming_prefix              = var.naming_prefix
+  gateway_vpc_endpoints      = var.gateway_vpc_endpoints
+  interface_vpc_endpoints    = var.interface_vpc_endpoints
   vpce_security_group        = var.vpce_security_group
   resource_names_map         = var.resource_names_map
   region                     = var.region
@@ -33,5 +31,4 @@ module "ecs_platform" {
 
   vpc        = var.vpc
   create_vpc = var.create_vpc
-
 }

@@ -10,12 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-variable "naming_prefix" {
-  description = "Prefix for the provisioned resources."
-  type        = string
-  default     = "platform"
-}
-
 variable "logical_product_family" {
   type        = string
   description = <<EOF
@@ -96,9 +90,9 @@ variable "resource_names_map" {
   }
 }
 
-### VPC related variables
+### VPC related variables ###
 variable "vpc_id" {
-  description = "The VPC ID of the VPC where infrastructure will be provisioned. Valid vpc_id is required when create_vpc variable value is set to true. Otherwise explicitely set this value to null."
+  description = "The VPC ID of the VPC where infrastructure will be provisioned. Valid vpc_id is required when create_vpc=true."
   type        = string
   default     = null
 }
@@ -110,13 +104,13 @@ variable "create_vpc" {
 }
 
 variable "private_subnets" {
-  description = "List of existing private subnet IDs to be used for ECS cluster"
+  description = "List of existing private subnet IDs to be used for ECS cluster. Required when var.create_vpc=false"
   type        = list(string)
   default     = []
 }
 
 variable "vpc" {
-  description = "VPC related variables"
+  description = "VPC related variables. Required when create_vpc=true."
   type = object({
     vpc_name                       = string
     vpc_cidr                       = string
@@ -125,6 +119,8 @@ variable "vpc" {
     availability_zones             = list(string)
     default_security_group_ingress = optional(list(map(string)), [])
   })
+
+  default = null
 }
 
 
@@ -195,6 +191,7 @@ variable "namespace_description" {
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "A map of tags to assign to the resources created by this module."
+  type        = map(string)
+  default     = {}
 }
