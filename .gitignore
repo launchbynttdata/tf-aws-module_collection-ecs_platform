@@ -4,6 +4,7 @@ components/
 .semverbot.toml
 .tflint.hcl
 .golangci.yaml
+.envrc
 
 .idea
 !examples/*.tfvars
@@ -23,6 +24,7 @@ components/
 # .tfstate files
 *.tfstate
 *.tfstate.*
+*.tfplan
 
 # Crash log files
 crash.log

@@ -23,7 +23,7 @@ variable "logical_product_family" {
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
 
-  default = "launch"
+  default = "terratest"
 }
 
 variable "logical_product_service" {
@@ -39,7 +39,7 @@ variable "logical_product_service" {
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
 
-  default = "ecs"
+  default = "ttecs"
 }
 
 variable "environment" {
@@ -76,16 +76,16 @@ variable "resource_names_map" {
   ))
   default = {
     ecs_cluster = {
-      name = "fargate"
+      name = "ttfargate"
     }
     ecs_sg = {
-      name = "ecssg"
+      name = "ttecssg"
     }
     vpce_sg = {
-      name = "vpcesg"
+      name = "ttvpcesg"
     }
     namespace = {
-      name       = "ns"
+      name       = "ttns"
       max_length = 60
     }
   }
